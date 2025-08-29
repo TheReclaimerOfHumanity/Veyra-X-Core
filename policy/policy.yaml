@@ -1,0 +1,29 @@
+version: 0.1
+identity:
+  owner_auth: mfa_required
+  token_ttl_min: 30
+risk_threshold:
+  total: 0.6  # 0..1 scale
+  irreversible: 0.3
+  legal_illicit: 0.0
+law1:
+  block_illegal: true
+  block_delegation_forbidden: true
+  safe_mode_on_uncertainty: true
+  rate_limits:
+    writes_per_min: 5
+    external_calls_per_hour: 0   # default offline
+law2:
+  clarify_once_on_ambiguous: true
+  dry_run_required_for_irreversible: true
+  consent_delta_required: true
+  local_first: true
+law3:
+  versioned_writes: true
+  provenance_required: true
+  block_shadow_updates: true
+  immutable_core: true
+  encrypted_snapshots: true
+responses:
+  refuse_template: "Cannot comply (violates {{law}}: {{reason}})."
+  require_consent_template: "Needs new permission: {{delta}}."
